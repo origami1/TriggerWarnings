@@ -3,4 +3,11 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
+from django.http import HttpResponse
+
 # Create your views here.
+
+# Landing page with login and link to create new profile
+def index(request):
+    return HttpResponse("Hello")
+
