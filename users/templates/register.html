@@ -3,6 +3,39 @@
     <title>Trigger Warnings: register</title>
   </head>
   <body>
-    Register for an account here.
+    {% if userid == "_none" %}
+    <h3>Register for an account here.</h3>
+    {% elif userid == "_invalid" %}
+    <h3>Invalid input. Try again.</h3>
+      {% if myform.non_field_errors %}
+      <i style='color:red';>{{myform.non_field_errors.as_text}}</i><br />
+      {% endif %}
+    {% endif %}
+
+    {% if userid == "_none" or userid == "_invalid" %}
+    <form name="form" action="{% url "register" %}"
+	  method="POST">{% csrf_token %}
+      userid: <input type="text" placeholder="user id" name="userid"/>
+      {% if 'userid' in myform.errors %}
+      <i>{{myform.errors.userid.as_text}}</i>
+      {% endif %}
+      <br />
+      password: <input type="password" placeholder="password" name="password"/>      {% if 'password' in myform.errors %}
+      <i>{{myform.errors.password.as_text}}</i>
+      {% endif %}
+      <br />
+      password: <input type="password" placeholder="confirm password" name="confirm_password"/>
+      {% if 'confirm_password' in myform.errors %}
+      <i>{{myform.errors.confirm_password.as_text}}</i>
+      {% endif %}
+      <br />
+      {% for key,value in trigger_types %}
+      <input type="checkbox" name={{key}}/>: {{value}}<br />
+      {% endfor %}
+      <button type="submit" value="login">Login</button>
+    </form>
+    {% else %}
+    <h3>Congratulations! You've successfully registered!</h3>
+    {% endif %}
   </body>
 </html>

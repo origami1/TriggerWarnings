@@ -7,18 +7,7 @@ from TriggerWarnings import trigger_types
 
 # Create your models here.
 
-#trigger_types could be in a separate file that gets imported ... that
-#way you wouldn't have to worry about keeping the list sync'd between
-#the users db and the movies db ... but for now, this is fine
-#trigger_types = [ ('t1', 'Animal Cruelty'), ('t2', 'It was all a dream'), ('t3', 'He/She was dead all along'), ('t4', 'Main character dies'), ('t5', 'Cliff Hanger Ending'), ('t6', 'Cliff Hanger Ending without sequel') ]
-#triggers = {}
-#for type in trigger_types:
-#    Profiles.add_to_class(
-#    triggers[type] = models.BooleanField(default=False, verbose_name=type)
-
-
 # List of triggers
-#class Triggers(models.Model):
 #    animal_cruelty = models.BooleanField(default=False)
 #    it_was_all_a_dream = models.BooleanField(default=False)
 #    she_was_dead_all_along = models.BooleanField(default=False)
@@ -38,7 +27,5 @@ class Profiles(models.Model):
         locals()[trigger] = models.BooleanField(default=False, verbose_name=descr)
 
     del locals()['trigger']
-
-#    triggers = models.ForeignKey(Triggers)
 
 
