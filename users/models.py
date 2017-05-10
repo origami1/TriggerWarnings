@@ -20,7 +20,8 @@ from TriggerWarnings import trigger_types
 class Profiles(models.Model):
     userid = models.CharField(max_length=100,
                               help_text="Keep it under 100 characters",
-                              unique = True)
+                              unique = True,
+                              primary_key = True)
     password = models.CharField(max_length=100,
                                 help_text="Keep it under 100 characters")
     for trigger, descr in trigger_types.types:

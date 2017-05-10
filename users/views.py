@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import RequestContext
 from users.forms import LoginForm, ProfileForm
+from users.models import Profiles
 from TriggerWarnings import trigger_types
 
 # Create your views here.
@@ -22,8 +23,10 @@ def index(request):
     if request.method == 'POST':
         MyLoginForm = LoginForm(request.POST)
 
+        #This also checks the credentials
         if MyLoginForm.is_valid():
             userid = MyLoginForm.cleaned_data['userid']
+            return render(request, 'main.html', {'userid':userid})
 
     else:
         MyLoginForm = LoginForm()
@@ -41,8 +44,13 @@ def register(request):
         MyProfileForm = ProfileForm(request.POST)
 
         if MyProfileForm.is_valid():
-            userid = MyProfileForm.cleaned_data['userid']
-            return render(request, 'main.html', {'userid':userid})
+            u = MyProfileForm.cleaned_data['userid']
+            p = MyProfileForm.cleaned_data['password']
+            data_dict = {}
+            for trigger,descr in trigger_types.types:
+                data_dict[trigger] = MyProfileForm.cleaned_data[trigger]
+            profile = Profiles.objects.create(userid=u, password=p, **data_dict)
+            return render(request, 'main.html', {'userid':u})
         else:
             userid = "_invalid"
             form_errors = MyProfileForm.errors
