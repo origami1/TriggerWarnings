@@ -10,8 +10,9 @@
 	  <form name="form" action="{% url "index" %}"
 		method="POST">{% csrf_token %}
 	    <input type="text" placeholder="user id" name="userid"/>
-	    <input type="password" placehold="password" name="password"/>
+	    <input type="password" placeholder="password" name="password"/>
 	    <button type="submit" value="login">Login</button>
+	  </form>
 	</td>
 	<td width=50%>
 	  <a href="../register">Register</a>

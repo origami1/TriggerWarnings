@@ -56,6 +56,10 @@ def register(request):
     userid = "_none"
     form_errors = {}
 
+    if request.session.has_key('userid'):
+        u = request.session['userid']
+        return render(request, 'main.html', {'userid':u})
+
     if request.method == 'POST':
         MyProfileForm = ProfileForm(request.POST)
 
@@ -84,3 +88,4 @@ def logout(request):
     except:
         pass
     return render(request, 'logout.html', {})
+

@@ -6,8 +6,27 @@
   <body>
     <h3>Welcome {{userid}}!</h3>
     <ul>
-      <li>Lookup a movie: </li>
+      <li>
+	<form name="form" action="{% url "search" %}"
+	      method="POST">{% csrf_token %}
+	  Lookup a movie:
+	  <input type="text" placeholder="Movie Title" name="movie_title"/>
+	  <input type="submit" style="visibility: hidden;"/>
+	  
+      </li>
       <li><a href="../?logout=1">Logout</a></li>
+      
     </ul>
+
+    {% if results %}
+    <p>
+      <h3>Results:</h3>
+      <ol>
+	{% for movie in results %}
+	<li>{{movie}}</li>
+	{% endfor %}
+      </ol>
+    </p>
+    {% endif %}
   </body>
 </html>
