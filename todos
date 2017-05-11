@@ -1,0 +1,10 @@
+NEXT STEP
+
+DONE->>>        SAVE/ADD user to db
+
+NEXT NEXT STEP
+
+DONE (partially)->>>        AUTHENTICATE user (also use timed cookie to keep user logged in)
+        (also use timed cookie to keep user logged in)
+        LOGOUT USER
+

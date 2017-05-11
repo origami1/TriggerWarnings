@@ -16,8 +16,23 @@ myformatter = logging.Formatter(fmt="%(levelname)s: %(message)s")
 myhandler.setFormatter(myformatter)
 logger.addHandler(myhandler)
 
-# Landing page with login and link to create new profile
-def index(request):
+# Start here ... if already logged in, proceed to main, else
+# go to login page.
+def start(request):
+    if request.GET.get('logout', "0") == "1":
+        try:
+            del request.session['userid']
+        except:
+            pass
+
+    if request.session.has_key('userid'):
+        u = request.session['userid']
+        return render(request, 'main.html', {'userid':u})
+    else:
+        return render(request, 'login.html', {})
+
+# Login page
+def login(request):
     userid = "not logged in"
 
     if request.method == 'POST':
@@ -26,19 +41,20 @@ def index(request):
         #This also checks the credentials
         if MyLoginForm.is_valid():
             userid = MyLoginForm.cleaned_data['userid']
+            request.session['userid'] = userid
             return render(request, 'main.html', {'userid':userid})
 
     else:
-        MyLoginForm = LoginForm()
+        if request.session.has_key('userid'):
+            u = request.session['userid']
+            return render(request, 'main.html', {'userid':u})
 
-    return render(request, 'index.html', {'userid' : userid})
+    return render(request, 'login.html', {})
 
-
+# Create profile page
 def register(request):
     userid = "_none"
     form_errors = {}
-
-    logger.error("register: enter")
 
     if request.method == 'POST':
         MyProfileForm = ProfileForm(request.POST)
@@ -61,19 +77,10 @@ def register(request):
     return render(request, 'register.html', {'userid':userid, "trigger_types":trigger_types.types, 'errors':form_errors, 'myform':MyProfileForm})
 
 
-def login(request):
-    userid = "not logged in"
-
-    if request.method == 'POST':
-        MyLoginForm = LoginForm(request.POST)
-
-        if MyLoginForm.is_valid():
-            userid = MyLoginForm.cleaned_data['userid']
-
-    else:
-        MyLoginForm = LoginForm()
-
-
-    return render(request, 'loggedin.html', {'userid' : userid})
-
-
+#Logout
+def logout(request):
+    try:
+        del request.session['userid']
+    except:
+        pass
+    return render(request, 'logout.html', {})
