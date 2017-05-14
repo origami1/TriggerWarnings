@@ -15,6 +15,9 @@ def search(request):
         u = request.session['userid']
 
         #Was this a POST?
+        #I know I should actually create a Form to handle this input
+        #so that it gets cleaned and validated, but this is just some
+        #quick prototyping.
         if request.POST.get('movie_title'):
             #Case-insensitive search, using "like" matching
             movies = Movies.objects.filter(title__icontains=request.POST.get("movie_title"))

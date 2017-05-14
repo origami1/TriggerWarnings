@@ -8,7 +8,9 @@ DONE->>>        LOGOUT USER
 
 DONE->>>	make sure all pages check for session cookie
 
-	add search to pull up movie
+DONE->>>	add search to pull up movie
 
-	rate returned movie see/no see
+DONE->>>	rate returned movie see/no see
 
+I'm not going to bother implementing a "Add/Rate Movie" option as
+that is a trivial item.

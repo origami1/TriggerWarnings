@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'triggerwarningsdbuser',
-        'PASSWORD': 'flexiblepen37',
+        'PASSWORD': 'triggerwarningspassword',
         'HOST': 'localhost',
         'PORT': '',
         'NAME': 'triggerwarningsdb',

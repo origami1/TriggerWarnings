@@ -1,0 +1,9 @@
+#Use this file with either
+#  pip install -r <this file>
+#or
+#  conda create --name <env name> --file <this file>
+
+django
+gunicorn
+psycopg2
+

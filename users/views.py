@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from users.forms import LoginForm, ProfileForm
 from users.models import Profiles
@@ -41,6 +41,9 @@ def login(request):
         #This also checks the credentials
         if MyLoginForm.is_valid():
             userid = MyLoginForm.cleaned_data['userid']
+            #Save a session cookie. (Note: this should be accompanied by
+            #a corresponding "time value" so that we could expire the
+            #cookie w/o waiting on the user to "logout")
             request.session['userid'] = userid
             return render(request, 'main.html', {'userid':userid})
 
