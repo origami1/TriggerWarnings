@@ -24,6 +24,7 @@ class Profiles(models.Model):
                               primary_key = True)
     password = models.CharField(max_length=100,
                                 help_text="Keep it under 100 characters")
+    version = models.IntegerField(default=trigger_types.version)
     for trigger, descr in trigger_types.types:
         locals()[trigger] = models.BooleanField(default=False, verbose_name=descr)
 

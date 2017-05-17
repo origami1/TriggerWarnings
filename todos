@@ -14,3 +14,19 @@ DONE->>>	rate returned movie see/no see
 
 I'm not going to bother implementing a "Add/Rate Movie" option as
 that is a trivial item.
+
+One additional edit:
+ -- added a version number to the trigger_types so that we can track
+    which users need to update their profiles when/if new trigger types
+    get added
+     -- this is in trigger_types.py
+     -- also in the users/models.py file
+     -- users/views.py has some commented notes indicating where/how
+        version would be checked during user login
+     -- would probably be able to just re-use the register.html template
+        (which would also need to be used in order to allow a user to
+        update their settings)
+
+ -- added somes comments in movies/views.py indicating how to easily
+    handle accepting an empty string in the search form (in order
+    to allow a user to simply list all the movies in the db)

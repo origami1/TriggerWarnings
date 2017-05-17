@@ -41,10 +41,20 @@ def login(request):
         #This also checks the credentials
         if MyLoginForm.is_valid():
             userid = MyLoginForm.cleaned_data['userid']
+
             #Save a session cookie. (Note: this should be accompanied by
             #a corresponding "time value" so that we could expire the
             #cookie w/o waiting on the user to "logout")
             request.session['userid'] = userid
+            
+            #Check user's profile version against latest value.
+            #If out of date, display edit profile page (where
+            #new types are in red/etc).
+            #user = Profiles.objects.get(userid=userid)
+            #if user.version != trigger_types.version:
+            #    new_types = ....list of new types....
+            #    return render(request, 'edit_profile.html', {'userid':userid, 'new_types':new_types})
+
             return render(request, 'main.html', {'userid':userid})
 
     else:

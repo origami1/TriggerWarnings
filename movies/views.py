@@ -18,6 +18,14 @@ def search(request):
         #I know I should actually create a Form to handle this input
         #so that it gets cleaned and validated, but this is just some
         #quick prototyping.
+
+        #In order to add ease support for accepting an empty string
+        #in the form input:
+        # first check if this is a post
+        # and then get the movie_title,
+        # if empty, simply get all the movies,
+        # otherwise do as below.
+
         if request.POST.get('movie_title'):
             #Case-insensitive search, using "like" matching
             movies = Movies.objects.filter(title__icontains=request.POST.get("movie_title"))
